@@ -30,3 +30,17 @@ void DeviceManager::onLoop() {
 	}
 
 }
+void DeviceManager::setValue(int id, int value) {
+
+	char buffer[100];
+	Actor* actor = (Actor*) actorList.getElemetByKey(id);
+	if (actor == 0) {
+		sprintf(buffer, "Kein Actor mit der ID= %d registriert.", id);
+		Serial.println(buffer);
+	} else {
+		sprintf(buffer, "Setze Wert: %d für Actor mit der ID= %d.",value, id);
+		Serial.println(buffer);
+		actor->writeValue(value);
+	}
+
+}

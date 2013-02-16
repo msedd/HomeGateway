@@ -7,8 +7,8 @@
 
 #include "Actor.h"
 
-Actor::Actor() {
-	// TODO Auto-generated constructor stub
+Actor::Actor(int sensorID):Device (sensorID){
+
 
 }
 

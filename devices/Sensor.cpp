@@ -7,9 +7,9 @@
 
 #include "Sensor.h"
 
-Sensor::Sensor(int sensorID, IEventHandler* aEventHandler) {
+Sensor::Sensor(int sensorID, IEventHandler* aEventHandler) :
+		Device(sensorID) {
 	lastValue = 0;
-	id = sensorID;
 	eventHandler = aEventHandler;
 }
 
@@ -23,16 +23,15 @@ void Sensor::readAndDispatch() {
 }
 
 bool Sensor::hasChanged() {
-	if (readValue() != lastValue) {
+	int v = readValue();
+	if (v != lastValue) {
+		lastValue = v;
 		return true;
 	}
 	return false;
 }
 void Sensor::sendEvent(int value) {
 	char buffer[10];
-	sprintf(buffer, "[%d,%d]", id, value);
-	eventHandler->handleEvent(id,value);
-}
-int Sensor::getSensorID() {
-	return id;
+	sprintf(buffer, "[%d,%d]", getID(), value);
+	eventHandler->handleEvent(getID(), value);
 }

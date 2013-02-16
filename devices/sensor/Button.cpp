@@ -10,7 +10,7 @@
 Button::Button(int sensorID, int port, IEventHandler* eventHandler) :
 		Sensor(sensorID,eventHandler) {
 	digitalPort = port;
-
+	pinMode(digitalPort, INPUT);
 }
 
 Button::~Button() {

@@ -8,10 +8,21 @@
 #ifndef DEVICE_H_
 #define DEVICE_H_
 
+#include <Arduino.h>
+
 class Device {
 public:
-	Device();
-	virtual ~Device();
+	Device(int sensorID) {
+		id = sensorID;
+	}
+	virtual ~Device() {
+	}
+	int getID() {
+		return id;
+	}
+
+private:
+	int id;
 };
 
 #endif /* DEVICE_H_ */

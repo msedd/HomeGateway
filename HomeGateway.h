@@ -8,7 +8,6 @@
 #ifndef HOMEGATEWAY_H_
 #define HOMEGATEWAY_H_
 
-#include <SPI.h>
 #include <Ethernet.h>
 #include <PubSubClient.h>
 #include "devices/DeviceManager.h"
@@ -16,15 +15,15 @@
 
 class HomeGateway: public IEventHandler {
 public:
-	HomeGateway();
+	HomeGateway(PubSubClient&);
 	virtual ~HomeGateway();
 	virtual void handleEvent(int deviceID, int value);
+	void handleMessage(char* topic, byte* payload, unsigned int length);
 	void onLoop();
 
 private:
 	void connect();
-	PubSubClient* client;
-	EthernetClient ethClient;
+	PubSubClient& client;
 	DeviceManager* deviceManager;
 	enum {
 		DEVICEID_LED1 = 1,
@@ -50,9 +49,9 @@ private:
 		DIGITAL_IO12 = 12,
 		DIGITAL_IO13 = 13
 	};
-	static byte MESSAGE_BROKER_IP[];
+
 	static byte MAC[];
-	static const int MESSAGE_BROKER_PORT = 1883;
+
 	static char* MESSAGING_TOPIC_IN;
 	static char* MESSAGING_TOPIC_OUT;
 	static char* MESSAGING_CLIENT_ID;
